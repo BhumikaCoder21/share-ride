@@ -8,7 +8,6 @@ import Navbar from "./Navbar";
 import "../styles/Home.css";
 import bannerImg from "../assets/shareRide_banner.jpg";
 
-
 function Home() {
   const [rides, setRides] = useState([]);
   const [filteredRides, setFilteredRides] = useState([]);
@@ -40,8 +39,8 @@ function Home() {
     try {
       await signOut(auth);
       localStorage.removeItem("user");
-      navigate("/"); // ✅ go to login
-      window.location.reload(); // ✅ force reload to reset state/UI
+      navigate("/");
+      window.location.reload();
     } catch (error) {
       console.error("Logout failed:", error);
       alert("Failed to logout. Try again.");
@@ -93,13 +92,11 @@ function Home() {
   return (
     <div className="home-container">
       <Navbar onLogout={handleLogout} />
-      {/* 🔽 Banner Image */}
-      {/* 🔽 Banner Image */}
+
       <div className="banner-wrapper">
         <img src={bannerImg} alt="Banner" className="banner-img" />
       </div>
 
-      {/* 🔽 Search Bar placed AFTER the banner with spacing */}
       <div className="ride-search-wrapper">
         <div className="ride-search-bar">
           <div className="ride-input-icon">
@@ -141,45 +138,47 @@ function Home() {
       {filteredRides.length === 0 ? (
         <p>No rides available.</p>
       ) : (
-        filteredRides.map((ride) => (
-          <div key={ride.id} className="ride-card">
-            <h2>👤 {ride.name}</h2>
-            <p>
-              <strong>From:</strong> {ride.source} <br />
-              <strong>To:</strong> {ride.destination} <br />
-              <strong>Departure:</strong> {ride.time.toLocaleString()} <br />
-              <strong>Fare:</strong> ₹{ride.fare} <br />
-              <strong>Seats:</strong> {ride.seats}
-            </p>
+        <div className="rides-grid">
+          {filteredRides.map((ride) => (
+            <div key={ride.id} className="ride-card">
+              <h2>👤 {ride.name}</h2>
+              <p>
+                <strong>From:</strong> {ride.source} <br />
+                <strong>To:</strong> {ride.destination} <br />
+                <strong>Departure:</strong> {ride.time.toLocaleString()} <br />
+                <strong>Fare:</strong> ₹{ride.fare} <br />
+                <strong>Seats:</strong> {ride.seats}
+              </p>
 
-            {visibleContact[ride.id] ? (
-              <>
-                <p>
-                  <strong>Contact:</strong> {ride.contact}
-                </p>
-                <p>
-                  <strong>Vehicle:</strong> {ride.vehicle}
-                </p>
-              </>
-            ) : (
-              <button
-                className="connect-btn"
-                onClick={() => openConnectForm(ride)}
-              >
-                Request to Connect
-              </button>
-            )}
+              {visibleContact[ride.id] ? (
+                <>
+                  <p>
+                    <strong>Contact:</strong> {ride.contact}
+                  </p>
+                  <p>
+                    <strong>Vehicle:</strong> {ride.vehicle}
+                  </p>
+                </>
+              ) : (
+                <button
+                  className="connect-btn"
+                  onClick={() => openConnectForm(ride)}
+                >
+                  Request to Connect
+                </button>
+              )}
 
-            {ride.userEmail === user?.email && (
-              <button
-                className="delete-btn"
-                onClick={() => handleDelete(ride.id)}
-              >
-                Delete Ride
-              </button>
-            )}
-          </div>
-        ))
+              {ride.userEmail === user?.email && (
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(ride.id)}
+                >
+                  Delete Ride
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
       )}
 
       {selectedRide && (

@@ -1,33 +1,170 @@
+/* Container */
 .home-container {
-    padding: 20px;
-  }
+  padding: 20px;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Header */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+/* Post Ride Button */
+.post-button-container {
+  margin: 20px 0;
+}
+
+.post-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.post-button:hover {
+  background-color: #218838;
+}
+
+/* ✅ Banner */
+.banner-wrapper {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 🔽 Space between banner and search bar */
+.ride-search-wrapper {
+  width: 100%;
+  background-color: #fff;
+  padding: 30px 20px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* 🔽 Search Bar Container */
+.ride-search-bar {
+  display: flex;
+  gap: 15px;
+  width: 100%;
   
-  .home-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logout-button {
-    padding: 8px 16px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .post-button-container {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .post-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+  max-width: 1100px;
+  background-color: #f8f9fa;
+  padding: 16px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+/* 🔽 Input with Icon Container */
+.ride-input-icon {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding-left: 35px;
+}
+.ride-search-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px; /* ⬅️ Increase this value for more space */
+}
+
+
+
+.ride-input-icon span {
+  position: absolute;
+  left: 10px;
+  font-size: 18px;
+  color: #555;
+}
+
+.ride-input-icon input {
+  flex: 1;
+  border: none;
+  padding: 12px 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* 🔽 Search Button */
+.ride-search-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ride-search-btn:hover {
+  background-color: #0056b3;
+}
+
+
+/* Ride Card */
+.ride-card {
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ride-card h2 {
+  margin: 0 0 10px 0;
+}
+
+.ride-card p {
+  margin: 4px 0;
+}
+
+/* Action Buttons */
+.connect-btn,
+.delete-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.connect-btn {
+  background-color: #17a2b8;
+}
+
+.connect-btn:hover {
+  background-color: #138496;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}

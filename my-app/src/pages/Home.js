@@ -1,68 +1,195 @@
-// src/pages/Home.js
-import React from "react";
-import RideCard from "../components/RideCard";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db, auth } from "../firebase";
+import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { signOut, auth } from "../firebase";
+import ConnectModal from "../components/ConnectModal";
+import Navbar from "./Navbar";
 import "../styles/Home.css";
+import bannerImg from "../assets/shareRide_banner.jpg";
 
-const dummyRides = [
-  {
-    id: 1,
-    name: "Ankit Singh",
-    source: "NIT Arunachal",
-    destination: "Itanagar",
-    time: "10 July 2025, 3:00 PM",
-    fare: 150,
-    seats: 2,
-    contact: "9876543210",
-    vehicle: "AS01AB1234",
-  },
-  {
-    id: 2,
-    name: "Pooja Rani",
-    source: "NIT Arunachal",
-    destination: "Guwahati",
-    time: "11 July 2025, 8:00 AM",
-    fare: 500,
-    seats: 1,
-    contact: "7890123456",
-    vehicle: "AS02XY9876",
-  },
-];
 
-function Home({ setUser }) {
+function Home() {
+  const [rides, setRides] = useState([]);
+  const [filteredRides, setFilteredRides] = useState([]);
+  const [selectedRide, setSelectedRide] = useState(null);
+  const [visibleContact, setVisibleContact] = useState({});
+  const [source, setSource] = useState("");
+  const [destination, setDestination] = useState("");
+  const [date, setDate] = useState("");
   const navigate = useNavigate();
+  const user = auth.currentUser;
+
+  useEffect(() => {
+    const fetchRides = async () => {
+      const querySnapshot = await getDocs(collection(db, "rides"));
+      const fetchedRides = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+        time: new Date(doc.data().time),
+        createdAt: doc.data().createdAt?.toDate(),
+      }));
+      setRides(fetchedRides);
+      setFilteredRides(fetchedRides);
+    };
+
+    fetchRides();
+  }, []);
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
       localStorage.removeItem("user");
-      setUser(null); // ✅ this updates App.js and redirects
-      navigate("/");
+      navigate("/"); // ✅ go to login
+      window.location.reload(); // ✅ force reload to reset state/UI
     } catch (error) {
-      console.error("Logout failed", error);
-      alert("Failed to log out. Try again.");
+      console.error("Logout failed:", error);
+      alert("Failed to logout. Try again.");
+    }
+  };
+
+  const openConnectForm = (ride) => setSelectedRide(ride);
+  const closeConnectForm = () => setSelectedRide(null);
+
+  const handleConfirmConnect = () => {
+    setVisibleContact((prev) => ({ ...prev, [selectedRide.id]: true }));
+    closeConnectForm();
+  };
+
+  const handleSearch = () => {
+    const filtered = rides.filter((ride) => {
+      const matchesSource = source
+        ? ride.source.toLowerCase().includes(source.toLowerCase())
+        : true;
+      const matchesDest = destination
+        ? ride.destination.toLowerCase().includes(destination.toLowerCase())
+        : true;
+      const matchesDate = date
+        ? ride.time.toISOString().slice(0, 10) === date
+        : true;
+      return matchesSource && matchesDest && matchesDate;
+    });
+
+    setFilteredRides(filtered);
+  };
+
+  const handleDelete = async (rideId) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this ride?"
+    );
+    if (!confirm) return;
+
+    try {
+      await deleteDoc(doc(db, "rides", rideId));
+      setRides((prev) => prev.filter((r) => r.id !== rideId));
+      setFilteredRides((prev) => prev.filter((r) => r.id !== rideId));
+      alert("Ride deleted.");
+    } catch (error) {
+      console.error("Error deleting ride:", error);
+      alert("Failed to delete ride.");
     }
   };
 
   return (
     <div className="home-container">
-      <div className="home-header">
-        <h2>🚗 Available Rides</h2>
-        <button className="logout-button" onClick={handleLogout}>
-          Logout
-        </button>
+      <Navbar onLogout={handleLogout} />
+      {/* 🔽 Banner Image */}
+      {/* 🔽 Banner Image */}
+      <div className="banner-wrapper">
+        <img src={bannerImg} alt="Banner" className="banner-img" />
       </div>
 
-      <div className="post-button-container">
-        <button className="post-button" onClick={() => navigate("/post")}>
-          + Post a Ride
-        </button>
+      {/* 🔽 Search Bar placed AFTER the banner with spacing */}
+      <div className="ride-search-wrapper">
+        <div className="ride-search-bar">
+          <div className="ride-input-icon">
+            <span>📍</span>
+            <input
+              type="text"
+              value={source}
+              onChange={(e) => setSource(e.target.value)}
+              placeholder="From"
+            />
+          </div>
+
+          <div className="ride-input-icon">
+            <span>📍</span>
+            <input
+              type="text"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              placeholder="To"
+            />
+          </div>
+
+          <div className="ride-input-icon">
+            <span>📅</span>
+            <input
+              type="date"
+              value={date}
+              min={new Date().toISOString().split("T")[0]}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+
+          <button className="ride-search-btn" onClick={handleSearch}>
+            Search
+          </button>
+        </div>
       </div>
 
-      {dummyRides.map((ride) => (
-        <RideCard key={ride.id} ride={ride} />
-      ))}
+      {filteredRides.length === 0 ? (
+        <p>No rides available.</p>
+      ) : (
+        filteredRides.map((ride) => (
+          <div key={ride.id} className="ride-card">
+            <h2>👤 {ride.name}</h2>
+            <p>
+              <strong>From:</strong> {ride.source} <br />
+              <strong>To:</strong> {ride.destination} <br />
+              <strong>Departure:</strong> {ride.time.toLocaleString()} <br />
+              <strong>Fare:</strong> ₹{ride.fare} <br />
+              <strong>Seats:</strong> {ride.seats}
+            </p>
+
+            {visibleContact[ride.id] ? (
+              <>
+                <p>
+                  <strong>Contact:</strong> {ride.contact}
+                </p>
+                <p>
+                  <strong>Vehicle:</strong> {ride.vehicle}
+                </p>
+              </>
+            ) : (
+              <button
+                className="connect-btn"
+                onClick={() => openConnectForm(ride)}
+              >
+                Request to Connect
+              </button>
+            )}
+
+            {ride.userEmail === user?.email && (
+              <button
+                className="delete-btn"
+                onClick={() => handleDelete(ride.id)}
+              >
+                Delete Ride
+              </button>
+            )}
+          </div>
+        ))
+      )}
+
+      {selectedRide && (
+        <ConnectModal
+          user={user}
+          ride={selectedRide}
+          onClose={closeConnectForm}
+          onConfirm={handleConfirmConnect}
+        />
+      )}
     </div>
   );
 }

@@ -18,7 +18,7 @@ function Login({ setUser }) {
       }
 
       localStorage.setItem("user", JSON.stringify(result.user));
-      setUser(result.user); // ✅ trigger re-render
+      setUser(result.user); 
       navigate("/home");
     } catch (error) {
       console.error("Login failed", error);
@@ -29,7 +29,7 @@ function Login({ setUser }) {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Welcome to College Ride Share</h2>
+        <h2>Welcome to College Ride Sure</h2>
         <button className="login-button" onClick={handleLogin}>
           Sign in with Google
         </button>

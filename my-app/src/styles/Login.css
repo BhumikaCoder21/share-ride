@@ -1,34 +1,76 @@
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #f0f2f5;
-  }
-  
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background image with reduced opacity */
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: url("../assets/loginBg.jpg") no-repeat center center/cover;
+  opacity: 1; /* adjust opacity as needed */
+  z-index: -1;
+}
+
+/* Box above the background */
+.login-box {
+  background: rgba(255, 255, 255, 0.9); /* slightly transparent white */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+.login-button {
+  background-color: #4285F4;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #3367d6;
+}
+
+@media (max-width: 600px) {
   .login-box {
-    background: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    width: auto;
+    min-height: 200px; 
+    margin: 0 15px;     
+    padding: 20px;
+    border-radius: 8px;
+    
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+           
+
+
   }
-  
+
   .login-box h2 {
-    margin-bottom: 20px;
+    font-size: 18px;
   }
-  
+
   .login-button {
-    background-color: #4285F4;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 14px;
   }
-  
-  .login-button:hover {
-    background-color: #3367d6;
-  }
-  
+}

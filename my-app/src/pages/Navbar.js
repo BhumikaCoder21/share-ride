@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaPlusCircle, FaUserCircle } from "react-icons/fa";
 import "../styles/Navbar.css";
 
 const Navbar = ({ onLogout }) => {
-  const navigate = useNavigate(); // ✅ make sure this is called inside the component
+  const navigate = useNavigate();
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+
+  const toggleLogoutPopup = () => {
+    setShowLogoutPopup((prev) => !prev);
+  };
 
   return (
     <nav className="navbar">
@@ -19,12 +25,33 @@ const Navbar = ({ onLogout }) => {
       </div>
 
       <div className="navbar-right">
-        <button className="post-button" onClick={() => navigate("/post")}>
-          + Post a Ride
+        {/* === Desktop Buttons === */}
+        <button
+          className="post-button desktop-only"
+          onClick={() => navigate("/post")}
+        >
+          <FaPlusCircle className="nav-icon" /> Post a Ride
         </button>
-        <button className="navbar-logout-btn" onClick={onLogout}>
-          Logout
+        <button className="navbar-logout-btn desktop-only" onClick={onLogout}>
+          <FaUserCircle className="nav-icon" /> Logout
         </button>
+
+        {/* === Mobile Icons === */}
+        <div className="mobile-icon" onClick={() => navigate("/post")}>
+          <FaPlusCircle className="nav-icon" title="Post a Ride" />
+        </div>
+
+        <div className="mobile-icon" onClick={toggleLogoutPopup}>
+          <FaUserCircle className="nav-icon" title="Logout" />
+          {showLogoutPopup && (
+            <div className="logout-popup">
+              <p>Are you sure you want to logout?</p>
+              <button className="confirm-logout-btn" onClick={onLogout}>
+                Yes, Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );

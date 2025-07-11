@@ -1,3 +1,4 @@
+// src/pages/Home.js
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db, auth } from "../firebase";
@@ -5,8 +6,14 @@ import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import ConnectModal from "../components/ConnectModal";
 import Navbar from "./Navbar";
+import RideCard from "../pages/RideCard";
 import "../styles/Home.css";
 import bannerImg from "../assets/shareRide_banner.jpg";
+import Footer from "../components/Footer";
+
+
+
+
 
 function Home() {
   const [rides, setRides] = useState([]);
@@ -22,14 +29,38 @@ function Home() {
   useEffect(() => {
     const fetchRides = async () => {
       const querySnapshot = await getDocs(collection(db, "rides"));
-      const fetchedRides = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        time: new Date(doc.data().time),
-        createdAt: doc.data().createdAt?.toDate(),
-      }));
-      setRides(fetchedRides);
-      setFilteredRides(fetchedRides);
+      const now = new Date();
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setDate(now.getDate() - 30);
+
+      const validRides = [];
+
+      for (const rideDoc of querySnapshot.docs) {
+        const data = rideDoc.data();
+        const rideTime = new Date(data.time);
+
+        if (rideTime > now) {
+          // Show upcoming ride
+          validRides.push({
+            id: rideDoc.id,
+            ...data,
+            time: rideTime,
+            createdAt: data.createdAt?.toDate(),
+          });
+        } else if (rideTime < oneMonthAgo) {
+          // Delete rides older than 30 days
+          try {
+            await deleteDoc(doc(db, "rides", rideDoc.id));
+            console.log("Deleted expired ride:", rideDoc.id);
+          } catch (err) {
+            console.error("Failed to delete expired ride:", err);
+          }
+        }
+        // else (expired within 30 days) → keep but don't show
+      }
+
+      setRides(validRides);
+      setFilteredRides(validRides);
     };
 
     fetchRides();
@@ -136,47 +167,19 @@ function Home() {
       </div>
 
       {filteredRides.length === 0 ? (
-        <p>No rides available.</p>
+        <p style={{ textAlign: "center", marginTop: "30px" }}>
+          No rides available.
+        </p>
       ) : (
         <div className="rides-grid">
           {filteredRides.map((ride) => (
-            <div key={ride.id} className="ride-card">
-              <h2>👤 {ride.name}</h2>
-              <p>
-                <strong>From:</strong> {ride.source} <br />
-                <strong>To:</strong> {ride.destination} <br />
-                <strong>Departure:</strong> {ride.time.toLocaleString()} <br />
-                <strong>Fare:</strong> ₹{ride.fare} <br />
-                <strong>Seats:</strong> {ride.seats}
-              </p>
-
-              {visibleContact[ride.id] ? (
-                <>
-                  <p>
-                    <strong>Contact:</strong> {ride.contact}
-                  </p>
-                  <p>
-                    <strong>Vehicle:</strong> {ride.vehicle}
-                  </p>
-                </>
-              ) : (
-                <button
-                  className="connect-btn"
-                  onClick={() => openConnectForm(ride)}
-                >
-                  Request to Connect
-                </button>
-              )}
-
-              {ride.userEmail === user?.email && (
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(ride.id)}
-                >
-                  Delete Ride
-                </button>
-              )}
-            </div>
+            <RideCard
+              key={ride.id}
+              ride={ride}
+              showContact={visibleContact[ride.id]}
+              onConnect={() => openConnectForm(ride)}
+              onDelete={ride.userEmail === user?.email ? handleDelete : null}
+            />
           ))}
         </div>
       )}
@@ -189,7 +192,9 @@ function Home() {
           onConfirm={handleConfirmConnect}
         />
       )}
+      <Footer />
     </div>
+    
   );
 }
 

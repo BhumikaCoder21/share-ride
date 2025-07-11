@@ -1,43 +1,92 @@
 .post-ride-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 40px auto; /* Equal margin top & bottom */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.post-ride-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.post-ride-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post-ride-form input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.post-ride-form input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.form-buttons button {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.form-buttons button:hover {
+  transform: translateY(-2px);
+}
+
+/* Post Ride Button */
+.form-buttons button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-buttons button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Go Back to Home Button */
+.go-home-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.go-home-btn:hover {
+  background-color: #1e7e34;
+}
+
+/* === Responsive for small screens === */
+@media (max-width: 600px) {
+  .post-ride-container {
+    margin: 40px 16px; /* Maintain top and bottom margin, add small horizontal margin */
   }
-  
-  .post-ride-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .post-ride-form {
-    display: flex;
-    flex-direction: column;
+
+  .form-buttons {
+    flex-direction: row; /* Keep buttons side-by-side on small screens */
+    flex-wrap: wrap;
     gap: 10px;
   }
-  
-  .post-ride-form input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+
+  .form-buttons button {
+    flex: 1 1 45%; /* Allows wrapping if space is tight */
   }
-  
-  .post-ride-form input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
-  }
-  
-  .post-ride-form button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+}

@@ -1,0 +1,143 @@
+/* src/styles/RideCard.css */
+
+.ride-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.ride-card:hover {
+  transform: translateY(-3px);
+}
+
+.ride-card h3 {
+  color: #2d2d2d;
+  margin-bottom: 10px;
+}
+
+.ride-card p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.blue { color: #3498db; }
+.red { color: #e74c3c; }
+.green { color: #27ae60; }
+.orange { color: #e67e22; }
+.purple { color: #8e44ad; }
+.yellow { color: #f1c40f; }
+.grey { color: #7f8c8d; }
+
+.ride-contact-info {
+  background-color: #f3f9f3;
+  padding: 10px 14px;
+  border-left: 4px solid #2ecc71;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.ride-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.connect-btn,
+.delete-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.25s ease;
+}
+
+.connect-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.connect-btn:hover {
+  background-color: #0056b3;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.btn-icon {
+  font-size: 16px;
+}
+
+/* ✅ Fully responsive for all small screen widths */
+
+@media (max-width: 600px) {
+  .ride-card {
+    width: calc(100% - 32px);
+    margin: 12px auto;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .ride-card h3 {
+    font-size: 17px;
+  }
+
+  .ride-card p {
+    font-size: 14px;
+  }
+
+  .ride-contact-info {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .ride-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .connect-btn,
+  .delete-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .ride-card {
+    width: calc(100% - 24px);
+    padding: 14px;
+  }
+
+  .connect-btn,
+  .delete-btn {
+    font-size: 14px;
+  }
+}

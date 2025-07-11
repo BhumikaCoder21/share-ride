@@ -122,7 +122,16 @@ const PostRide = () => {
           onChange={handleChange}
         />
 
-        <button type="submit">Post Ride</button>
+        <div className="form-buttons">
+          <button type="submit">Post Ride</button>
+          <button
+            type="button"
+            className="go-home-btn"
+            onClick={() => navigate("/home")}
+          >
+            Go Back to Home
+          </button>
+        </div>
       </form>
     </div>
   );

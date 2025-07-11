@@ -1,98 +1,170 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #003366;
-    padding: 12px 24px;
-    color: white;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #003366;
+  padding: 15px 10px;
+  color: white;
+  flex-wrap: wrap;
+  position: relative;
+  box-shadow: none;
+  border-bottom: 1px solid #ddd;
+}
+
+/* === Left Section === */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-logo {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.navbar-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* === Right Section === */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* === Desktop Buttons === */
+.post-button,
+.navbar-logout-btn {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-button {
+  background-color: #00b894;
+  color: white;
+}
+
+.post-button:hover {
+  background-color: #019875;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.4);
+}
+
+.navbar-logout-btn {
+  background-color: #d63031;
+  color: white;
+}
+
+.navbar-logout-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(214, 48, 49, 0.4);
+}
+
+/* === Mobile Icons === */
+.mobile-icon {
+  display: none;
+  position: relative;
+  color: #55e9ee;
+  cursor: pointer;
+}
+
+/* Beautiful Logout Popup */
+.logout-popup {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  background-color: white;
+  color: #003366;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  z-index: 99;
+  width: 180px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.logout-popup p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.confirm-logout-btn {
+  background-color: #d63031;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.confirm-logout-btn:hover {
+  background-color: #c0392b;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
-  /* === Left Section === */
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Icon Size */
+.nav-icon {
+  font-size: 22px;
+}
+
+/* === Responsive View === */
+@media (max-width: 600px) {
+  .navbar {
+    flex-wrap: nowrap;
+  }
+
   .navbar-left {
-    display: flex;
-    align-items: center;
+    flex: 1;
   }
-  
-  .logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: white;
-  }
-  
-  .navbar-logo {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    margin-right: 12px;
-  }
-  
-  .navbar-title {
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-  
-  /* === Right Section === */
+
   .navbar-right {
-    display: flex;
     gap: 10px;
-    flex-wrap: wrap;
   }
-  
-  /* === Buttons === */
-  .post-button,
-  .navbar-logout-btn {
-    padding: 10px 20px;
-    font-size: 15px;
-    font-weight: 500;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.25s ease;
+
+  .desktop-only {
+    display: none;
   }
-  
-  .post-button {
-    background-color: #00b894;
-    color: white;
+
+  .mobile-icon {
+    display: inline-block;
+    font-size: 26px;
+    margin-left: 10px;
   }
-  
-  .post-button:hover {
-    background-color: #019875;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 184, 148, 0.4);
+
+  .nav-icon {
+    font-size: 28px;
   }
-  
-  .navbar-logout-btn {
-    background-color: #d63031;
-    color: white;
-  }
-  
-  .navbar-logout-btn:hover {
-    background-color: #c0392b;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(214, 48, 49, 0.4);
-  }
-  
-  /* === Mobile View === */
-  @media (max-width: 600px) {
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-  
-    .navbar-left,
-    .navbar-right {
-      width: 100%;
-      justify-content: space-between;
-    }
-  
-    .post-button,
-    .navbar-logout-btn {
-      width: 48%;
-      text-align: center;
-    }
-  }
-  
+}

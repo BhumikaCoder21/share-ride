@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="app-footer">
       <p>
-        &copy; {new Date().getFullYear()} ShareRide | Made with ❤️ for NIT
+        &copy; {new Date().getFullYear()} RideSure | Made with ❤️ for NIT
         Arunachal Pradesh
       </p>
     </footer>

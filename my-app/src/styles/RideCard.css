@@ -1,13 +1,13 @@
 .ride-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 20px;
-  margin: 15px auto;
+  width: 100%;
   max-width: 500px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease;
+  margin: 15px auto;
+  padding: 20px;
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 15px;
 }
+
 
 .ride-card:hover {
   transform: translateY(-3px);

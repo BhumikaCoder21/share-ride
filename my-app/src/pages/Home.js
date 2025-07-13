@@ -86,22 +86,27 @@ function Home() {
     closeConnectForm();
   };
 
-  const handleSearch = () => {
-    const filtered = rides.filter((ride) => {
-      const matchesSource = source
-        ? ride.source.toLowerCase().includes(source.toLowerCase())
-        : true;
-      const matchesDest = destination
-        ? ride.destination.toLowerCase().includes(destination.toLowerCase())
-        : true;
-      const matchesDate = date
-        ? ride.time.toISOString().slice(0, 10) === date
-        : true;
-      return matchesSource && matchesDest && matchesDate;
-    });
+ const handleSearch = () => {
+   const filtered = rides.filter((ride) => {
+     const matchesSource = source
+       ? ride.source.trim().toLowerCase().includes(source.trim().toLowerCase())
+       : true;
+     const matchesDest = destination
+       ? ride.destination
+           .trim()
+           .toLowerCase()
+           .includes(destination.trim().toLowerCase())
+       : true;
+     const matchesDate = date
+       ? ride.time.toISOString().slice(0, 10) === date
+       : true;
 
-    setFilteredRides(filtered);
-  };
+     return matchesSource && matchesDest && matchesDate;
+   });
+
+   setFilteredRides(filtered);
+ };
+
 
   const handleDelete = async (rideId) => {
     const confirm = window.confirm(

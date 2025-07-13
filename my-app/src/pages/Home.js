@@ -8,7 +8,7 @@ import ConnectModal from "../components/ConnectModal";
 import Navbar from "./Navbar";
 import RideCard from "../pages/RideCard";
 import "../styles/Home.css";
-import bannerImg from "../assets/shareRide_banner.jpg";
+import bannerImg from "../assets/Banner.png";
 import Footer from "../components/Footer";
 
 

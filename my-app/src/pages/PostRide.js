@@ -123,7 +123,6 @@ const PostRide = () => {
         />
 
         <div className="form-buttons">
-          <button type="submit">Post Ride</button>
           <button
             type="button"
             className="go-home-btn"
@@ -131,10 +130,12 @@ const PostRide = () => {
           >
             Go Back to Home
           </button>
+          <button type="submit">Post Ride</button>
         </div>
       </form>
     </div>
   );
 };
+
 
 export default PostRide;

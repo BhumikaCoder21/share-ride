@@ -58,11 +58,11 @@ const RideCard = ({ ride, showContact, onConnect, onDelete }) => {
       {showContact && (
         <div className="ride-contact-info">
           <p>
-            <FaPhone className="icon green" /> <strong>Contact:</strong>{" "}
+            <FaPhone className="icon green" /> <strong>Contact Number:</strong>{" "}
             {ride.contact}
           </p>
           <p>
-            <FaCar className="icon blue" /> <strong>Vehicle:</strong>{" "}
+            <FaCar className="icon blue" /> <strong>Vehicle Number:</strong>{" "}
             {ride.vehicle}
           </p>
         </div>

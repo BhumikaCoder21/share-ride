@@ -99,6 +99,8 @@ const PostRide = () => {
           <option value="Car">Car</option>
           <option value="Scooty">Scooty</option>
           <option value="Bike">Bike</option>
+          <option value="Train">Train</option>
+          <option value="Flight">Flight</option>
         </select>
 
         <input
@@ -120,10 +122,9 @@ const PostRide = () => {
           placeholder="Special notes (e.g., only female co-passengers allowed or any other preferences)"
           value={ride.note}
           onChange={handleChange}
-          maxLength={300} 
+          maxLength={300}
           rows={3}
         />
-        
 
         <input
           type="text"

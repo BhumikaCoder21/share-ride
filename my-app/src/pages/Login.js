@@ -1,8 +1,8 @@
-// src/pages/Login.js
 import React from "react";
 import { auth, provider, signInWithPopup } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import loginBg from "../assets/login_bg4.jpg";
 
 function Login({ setUser }) {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function Login({ setUser }) {
       }
 
       localStorage.setItem("user", JSON.stringify(result.user));
-      setUser(result.user); 
+      setUser(result.user);
       navigate("/home");
     } catch (error) {
       console.error("Login failed", error);
@@ -27,12 +27,21 @@ function Login({ setUser }) {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>Welcome to College Ride Sure</h2>
-        <button className="login-button" onClick={handleLogin}>
-          Sign in with Google
-        </button>
+    <div
+      className="login-container"
+      style={{ "--login-bg": `url(${loginBg})` }}
+    >
+      <div className="mobile-banner">
+        <img src={loginBg} alt="Login Banner" />
+      </div>
+
+      <div className="login-content">
+        <div className="login-box">
+          <h2>Welcome to NIT-AP Ride Sure</h2>
+          <button className="login-button" onClick={handleLogin}>
+            Sign in with Google
+          </button>
+        </div>
       </div>
     </div>
   );

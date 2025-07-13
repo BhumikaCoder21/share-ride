@@ -11,8 +11,10 @@ const PostRide = () => {
     source: "",
     destination: "",
     time: "",
+    mode: "",
     fare: "",
     seats: "",
+    note: "",
     contact: "",
     vehicle: "",
   });
@@ -92,6 +94,12 @@ const PostRide = () => {
           required
           onChange={handleChange}
         />
+        <select name="mode" value={ride.mode} required onChange={handleChange}>
+          <option value="">Select Mode of Transport</option>
+          <option value="Car">Car</option>
+          <option value="Scooty">Scooty</option>
+          <option value="Bike">Bike</option>
+        </select>
 
         <input
           type="number"
@@ -107,6 +115,16 @@ const PostRide = () => {
           required
           onChange={handleChange}
         />
+        <textarea
+          name="note"
+          placeholder="Special notes (e.g., only female co-passengers allowed or any other preferences)"
+          value={ride.note}
+          onChange={handleChange}
+          maxLength={300} 
+          rows={3}
+        />
+        
+
         <input
           type="text"
           name="contact"

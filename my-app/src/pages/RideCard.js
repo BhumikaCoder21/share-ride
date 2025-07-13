@@ -30,22 +30,29 @@ const RideCard = ({ ride, showContact, onConnect, onDelete }) => {
         {ride.destination}
       </p>
       <p>
-        <FaCalendarAlt className="icon orange" /> <strong>Departure:</strong>{" "}
+        <FaCalendarAlt className="icon orange" /> <strong>Departure: </strong>{" "}
         {new Date(ride.time).toLocaleString()}
       </p>
       <p>
-        <FaMoneyBillAlt className="icon yellow" /> <strong>Fare:</strong> ₹
+        <FaCar className="icon teal" /> <strong>Mode: </strong> {ride.mode}
+      </p>
+
+      <p>
+        <FaMoneyBillAlt className="icon yellow" /> <strong>Fare: </strong> ₹
         {ride.fare}
       </p>
       <p>
-        <FaChair className="icon purple" /> <strong>Seats:</strong> {ride.seats}
+        <FaChair className="icon purple" /> <strong>Seats: </strong>{" "}
+        {ride.seats}
       </p>
 
-      {ride.note && (
-        <p>
-          <FaStickyNote className="icon grey" /> <strong>Note:</strong>{" "}
-          {ride.note}
-        </p>
+      {ride.note?.trim() && (
+        <div className="ride-note">
+          <p>
+            <FaStickyNote className="icon grey" /> <strong>Note:</strong>{" "}
+            <span className="note-text">{ride.note}</span>
+          </p>
+        </div>
       )}
 
       {showContact && (

@@ -8,6 +8,21 @@
   padding-right: 15px;
 }
 
+.ride-note {
+  margin-top: 8px;
+  background-color: #f8f9fa;
+  padding: 8px 10px;
+  border-left: 3px solid #999;
+  border-radius: 4px;
+}
+
+.note-text {
+  color: #333;
+  display: inline;
+  font-style: italic;
+}
+
+
 
 .ride-card:hover {
   transform: translateY(-3px);
